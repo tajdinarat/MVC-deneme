@@ -1,0 +1,42 @@
+﻿@using WebApplication2.Models.Entity
+@model List<TBLKITAPLAR>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <table class="table table-striped">
+        <tr>
+            <th>Başlık</th>
+            <th>ISBN</th>
+            <th>Yayın Yılı</th>
+            <th>Fiyat</th>
+            <th>Durum</th>
+        </tr>
+        <tbody>
+            @foreach (var kitap in Model)
+            {
+                <tr>
+                    <td>@kitap.kitapBaslik</td>
+                    <td>@kitap.kitapISBN</td>
+                    <td>@kitap.kitapYayinYili</td>
+                    <td>@kitap.kitapFiyat</td>
+                    <td>@kitap.kitapDurum</td>
+                    <td><button type="button" onclick="location.href = '/Kitap/Detay/@kitap.kitapID';" class="btn btn-primary">Detay</button></td>
+                    @if (kitap.kitapDurum == "IN")
+                    {
+                        <td><button type="button" onclick="location.href = '/Kitap/Checkout/@kitap.kitapID';" class="btn btn-warning">Check-out</button></td>
+                    }
+                    else if (kitap.kitapDurum == "OUT")
+                    {
+                        <td><button type="button" onclick="location.href = '/Kitap/Checkin/@kitap.kitapID';" class="btn btn-success">Check-in</button></td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

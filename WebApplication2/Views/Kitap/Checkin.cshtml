@@ -1,0 +1,66 @@
+﻿@using WebApplication2.Models;
+@model Paslanacak
+@{
+    ViewBag.Title = "Checkin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <form class="form-group" method="post">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Kitap Adı
+                </th>
+                <td>
+                    @Model.kitapadi
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Beklenen Teslim Tarihi
+                </th>
+                <td>
+                    @Model.beklenenteslim
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Gerçek Teslim Tarihi
+                </th>
+                <td>
+                    @Model.gercekteslim
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    İşlem Yapanın Adı
+                </th>
+                <td>
+                    @Model.kisiadi
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    İşlem Yapanın Telefonu
+                </th>
+                <td>
+                    @Model.telefonno
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Ceza Miktarı
+                </th>
+                <td>
+                    @Model.cezamiktar
+                </td>
+            </tr>
+        </table>
+        <div style="margin-top:10px">
+            <input type="submit" value="Check-In">
+        </div>
+    </form>
+</div>
+
+

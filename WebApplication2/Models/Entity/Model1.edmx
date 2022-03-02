@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="kutuphaneDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TBLISLEMLER">
+          <Key>
+            <PropertyRef Name="islemID" />
+          </Key>
+          <Property Name="islemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="islemKisi" Type="int" />
+          <Property Name="islemTarih" Type="date" />
+        </EntityType>
+        <EntityType Name="TBLKISILER">
+          <Key>
+            <PropertyRef Name="kisiID" />
+          </Key>
+          <Property Name="kisiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kisiAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="kisiTelefon" Type="nvarchar" MaxLength="20" />
+          <Property Name="kisiTC" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="TBLKITAPLAR">
+          <Key>
+            <PropertyRef Name="kitapID" />
+          </Key>
+          <Property Name="kitapID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kitapBaslik" Type="nvarchar" MaxLength="50" />
+          <Property Name="kitapISBN" Type="nvarchar" MaxLength="50" />
+          <Property Name="kitapYayinYili" Type="nvarchar" MaxLength="10" />
+          <Property Name="kitapFiyat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="kitapDurum" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="kitapIslem" Type="int" />
+        </EntityType>
+        <Association Name="FK_TBLISLEMLER_TBLKISILER">
+          <End Role="TBLKISILER" Type="Self.TBLKISILER" Multiplicity="0..1" />
+          <End Role="TBLISLEMLER" Type="Self.TBLISLEMLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLKISILER">
+              <PropertyRef Name="kisiID" />
+            </Principal>
+            <Dependent Role="TBLISLEMLER">
+              <PropertyRef Name="islemKisi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLKITAPLAR_TBLISLEMLER">
+          <End Role="TBLISLEMLER" Type="Self.TBLISLEMLER" Multiplicity="0..1" />
+          <End Role="TBLKITAPLAR" Type="Self.TBLKITAPLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLISLEMLER">
+              <PropertyRef Name="islemID" />
+            </Principal>
+            <Dependent Role="TBLKITAPLAR">
+              <PropertyRef Name="kitapIslem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="kutuphaneDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLISLEMLER" EntityType="Self.TBLISLEMLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLKISILER" EntityType="Self.TBLKISILER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLKITAPLAR" EntityType="Self.TBLKITAPLAR" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBLISLEMLER_TBLKISILER" Association="Self.FK_TBLISLEMLER_TBLKISILER">
+            <End Role="TBLKISILER" EntitySet="TBLKISILER" />
+            <End Role="TBLISLEMLER" EntitySet="TBLISLEMLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLKITAPLAR_TBLISLEMLER" Association="Self.FK_TBLKITAPLAR_TBLISLEMLER">
+            <End Role="TBLISLEMLER" EntitySet="TBLISLEMLER" />
+            <End Role="TBLKITAPLAR" EntitySet="TBLKITAPLAR" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="kutuphaneDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBLISLEMLER">
+          <Key>
+            <PropertyRef Name="islemID" />
+          </Key>
+          <Property Name="islemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="islemKisi" Type="Int32" />
+          <Property Name="islemTarih" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TBLKISILER" Relationship="Self.FK_TBLISLEMLER_TBLKISILER" FromRole="TBLISLEMLER" ToRole="TBLKISILER" />
+          <NavigationProperty Name="TBLKITAPLARs" Relationship="Self.FK_TBLKITAPLAR_TBLISLEMLER" FromRole="TBLISLEMLER" ToRole="TBLKITAPLAR" />
+        </EntityType>
+        <EntityType Name="TBLKISILER">
+          <Key>
+            <PropertyRef Name="kisiID" />
+          </Key>
+          <Property Name="kisiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kisiAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kisiTelefon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="kisiTC" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBLISLEMLERs" Relationship="Self.FK_TBLISLEMLER_TBLKISILER" FromRole="TBLKISILER" ToRole="TBLISLEMLER" />
+        </EntityType>
+        <EntityType Name="TBLKITAPLAR">
+          <Key>
+            <PropertyRef Name="kitapID" />
+          </Key>
+          <Property Name="kitapID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kitapBaslik" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kitapISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kitapYayinYili" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="kitapFiyat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="kitapDurum" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="kitapIslem" Type="Int32" />
+          <NavigationProperty Name="TBLISLEMLER" Relationship="Self.FK_TBLKITAPLAR_TBLISLEMLER" FromRole="TBLKITAPLAR" ToRole="TBLISLEMLER" />
+        </EntityType>
+        <Association Name="FK_TBLISLEMLER_TBLKISILER">
+          <End Role="TBLKISILER" Type="Self.TBLKISILER" Multiplicity="0..1" />
+          <End Role="TBLISLEMLER" Type="Self.TBLISLEMLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLKISILER">
+              <PropertyRef Name="kisiID" />
+            </Principal>
+            <Dependent Role="TBLISLEMLER">
+              <PropertyRef Name="islemKisi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLKITAPLAR_TBLISLEMLER">
+          <End Role="TBLISLEMLER" Type="Self.TBLISLEMLER" Multiplicity="0..1" />
+          <End Role="TBLKITAPLAR" Type="Self.TBLKITAPLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLISLEMLER">
+              <PropertyRef Name="islemID" />
+            </Principal>
+            <Dependent Role="TBLKITAPLAR">
+              <PropertyRef Name="kitapIslem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="kutuphaneDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TBLISLEMLERs" EntityType="Self.TBLISLEMLER" />
+          <EntitySet Name="TBLKISILERs" EntityType="Self.TBLKISILER" />
+          <EntitySet Name="TBLKITAPLARs" EntityType="Self.TBLKITAPLAR" />
+          <AssociationSet Name="FK_TBLISLEMLER_TBLKISILER" Association="Self.FK_TBLISLEMLER_TBLKISILER">
+            <End Role="TBLKISILER" EntitySet="TBLKISILERs" />
+            <End Role="TBLISLEMLER" EntitySet="TBLISLEMLERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLKITAPLAR_TBLISLEMLER" Association="Self.FK_TBLKITAPLAR_TBLISLEMLER">
+            <End Role="TBLISLEMLER" EntitySet="TBLISLEMLERs" />
+            <End Role="TBLKITAPLAR" EntitySet="TBLKITAPLARs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="kutuphaneDBModelStoreContainer" CdmEntityContainer="kutuphaneDBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="kutuphaneDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLISLEMLERs">
+            <EntityTypeMapping TypeName="kutuphaneDBModel.TBLISLEMLER">
+              <MappingFragment StoreEntitySet="TBLISLEMLER">
+                <ScalarProperty Name="islemID" ColumnName="islemID" />
+                <ScalarProperty Name="islemKisi" ColumnName="islemKisi" />
+                <ScalarProperty Name="islemTarih" ColumnName="islemTarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLKISILERs">
+            <EntityTypeMapping TypeName="kutuphaneDBModel.TBLKISILER">
+              <MappingFragment StoreEntitySet="TBLKISILER">
+                <ScalarProperty Name="kisiID" ColumnName="kisiID" />
+                <ScalarProperty Name="kisiAd" ColumnName="kisiAd" />
+                <ScalarProperty Name="kisiTelefon" ColumnName="kisiTelefon" />
+                <ScalarProperty Name="kisiTC" ColumnName="kisiTC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLKITAPLARs">
+            <EntityTypeMapping TypeName="kutuphaneDBModel.TBLKITAPLAR">
+              <MappingFragment StoreEntitySet="TBLKITAPLAR">
+                <ScalarProperty Name="kitapID" ColumnName="kitapID" />
+                <ScalarProperty Name="kitapBaslik" ColumnName="kitapBaslik" />
+                <ScalarProperty Name="kitapISBN" ColumnName="kitapISBN" />
+                <ScalarProperty Name="kitapYayinYili" ColumnName="kitapYayinYili" />
+                <ScalarProperty Name="kitapFiyat" ColumnName="kitapFiyat" />
+                <ScalarProperty Name="kitapDurum" ColumnName="kitapDurum" />
+                <ScalarProperty Name="kitapIslem" ColumnName="kitapIslem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

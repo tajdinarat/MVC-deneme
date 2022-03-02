@@ -1,0 +1,68 @@
+﻿@using WebApplication2.Models
+@model MyViewModel
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Başlık
+            </th>
+            <td>
+                @Model.tblkitaplar.kitapBaslik
+            </td>
+        </tr>
+        <tr>
+            <th>
+                ISBN
+            </th>
+            <td>
+                @Model.tblkitaplar.kitapISBN
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Yayın Yılı
+            </th>
+            <td>
+                @Model.tblkitaplar.kitapYayinYili
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Fiyat
+            </th>
+            <td>
+                @Model.tblkitaplar.kitapFiyat
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Durum
+            </th>
+            <td>
+                @Model.tblkitaplar.kitapDurum
+            </td>
+        </tr>
+        <tr>
+            <th>
+                İşlem Tarihi
+            </th>
+            <td>
+                @Model.tblislemler.islemTarih
+            </td>
+        </tr>
+        <tr>
+            <th>
+                İşlemi Yapan Kişi
+            </th>
+            <td>
+                @Model.kisininAdi
+            </td>
+        </tr>
+    </table>
+</div>
