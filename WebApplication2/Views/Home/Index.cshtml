@@ -6,6 +6,7 @@
 }
 
 <div class="container-fluid">
+
     <table class="table table-striped">
         <tr>
             <th>Başlık</th>
@@ -15,6 +16,7 @@
             <th>Durum</th>
         </tr>
         <tbody>
+
             @foreach (var kitap in Model)
             {
                 <tr>
@@ -23,14 +25,20 @@
                     <td>@kitap.kitapYayinYili</td>
                     <td>@kitap.kitapFiyat</td>
                     <td>@kitap.kitapDurum</td>
-                    <td><button type="button" onclick="location.href = '/Kitap/Detay/@kitap.kitapID';" class="btn btn-primary">Detay</button></td>
+                    <td>
+                        <button type="button" onclick="location.href = '/Kitap/Detay/@kitap.kitapID';" class="btn btn-primary">Detay</button>
+                    </td>
                     @if (kitap.kitapDurum == "IN")
                     {
-                        <td><button type="button" onclick="location.href = '/Kitap/Checkout/@kitap.kitapID';" class="btn btn-warning">Check-out</button></td>
+                        <td>
+                            <button type="button" onclick="location.href = '/Kitap/Checkout/@kitap.kitapID';" class="btn btn-warning">Check-out</button>
+                        </td>
                     }
                     else if (kitap.kitapDurum == "OUT")
                     {
-                        <td><button type="button" onclick="location.href = '/Kitap/Checkin/@kitap.kitapID';" class="btn btn-success">Check-in</button></td>
+                        <td>
+                            <button type="button" onclick="location.href = '/Kitap/Checkin/@kitap.kitapID';" class="btn btn-success">Check-in</button>
+                        </td>
                     }
 
                 </tr>
@@ -38,5 +46,27 @@
         </tbody>
     </table>
 </div>
+
+<div>
+    <div class="dropdown ms-5">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" onclick="toggleDropdown()">
+            Kitaplar
+        </button>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="dropdownmenuid">
+            @foreach (var kitap in Model)
+            {
+                <li>
+                    <a class="dropdown-item" href="/Kitap/Detay/@kitap.kitapID">@kitap.kitapBaslik</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+<script>
+    function toggleDropdown() {
+        document.getElementById("dropdownmenuid").classList.toggle("show")
+    }
+</script>
 
 
